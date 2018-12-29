@@ -81,12 +81,15 @@ namespace EyeTracker.Service.Host
 
         private static void ServiceHost_Faulted(object sender, EventArgs e)
         {
+            serviceHostGlazeService.Close();
             Console.WriteLine("Service host faulted!" + Environment.NewLine + e);
         }
 
         private static void ServiceHostOnClosed(object sender, EventArgs eventArgs)
         {
+            serviceHostGlazeService.Close();
             Console.WriteLine("Host was closed.");
+
         }
 
     }

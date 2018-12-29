@@ -26,6 +26,6 @@ namespace EyeTracker.Service.Core
     public interface IEyeTrackerCallback
     {
         [OperationContract(IsOneWay = true, Action = "*")]
-        Task SendEyePosition(Message msg);
+        Task SendTrackerMessage(Message msg);
     }
 }
