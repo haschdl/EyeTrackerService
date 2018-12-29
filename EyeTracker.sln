@@ -3,7 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTrackerCore", "EyeTrackerCore\EyeTrackerCore.csproj", "{D5199F85-8A57-4DBD-993B-D76E9729E750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EyeTrackerCore", "EyeTrackerCore\EyeTrackerCore.csproj", "{D5199F85-8A57-4DBD-993B-D76E9729E750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTrackerConsole", "EyeTrackerConsole\EyeTrackerConsole.csproj", "{9872936B-6095-474A-AA05-2594297029F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{E519F3C8-F47F-4C33-999D-78CF4EFA3034}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTracker.Service.Core", "EyeTracker.Service.Core\EyeTracker.Service.Core.csproj", "{EBE26B55-D0A8-4150-B355-CF7D5736E748}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTracker.Service.Host", "EyeTracker.Service.Host\EyeTracker.Service.Host.csproj", "{6596ADF5-9B81-47F1-A588-F57240B69F39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientJS", "ClientJS", "{BC0151FB-8BFC-4CF8-913A-883386227DCF}"
+	ProjectSection(SolutionItems) = preProject
+		index.html = index.html
+		index.js = index.js
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +30,25 @@ Global
 		{D5199F85-8A57-4DBD-993B-D76E9729E750}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5199F85-8A57-4DBD-993B-D76E9729E750}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5199F85-8A57-4DBD-993B-D76E9729E750}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9872936B-6095-474A-AA05-2594297029F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9872936B-6095-474A-AA05-2594297029F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9872936B-6095-474A-AA05-2594297029F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9872936B-6095-474A-AA05-2594297029F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBE26B55-D0A8-4150-B355-CF7D5736E748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBE26B55-D0A8-4150-B355-CF7D5736E748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBE26B55-D0A8-4150-B355-CF7D5736E748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBE26B55-D0A8-4150-B355-CF7D5736E748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6596ADF5-9B81-47F1-A588-F57240B69F39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6596ADF5-9B81-47F1-A588-F57240B69F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6596ADF5-9B81-47F1-A588-F57240B69F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6596ADF5-9B81-47F1-A588-F57240B69F39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBE26B55-D0A8-4150-B355-CF7D5736E748} = {E519F3C8-F47F-4C33-999D-78CF4EFA3034}
+		{6596ADF5-9B81-47F1-A588-F57240B69F39} = {E519F3C8-F47F-4C33-999D-78CF4EFA3034}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {025D5617-2D52-46C8-9865-1F8A462A99D8}
