@@ -18,8 +18,14 @@ namespace EyeTracker.Service.Core
         private bool _keepAliveFaulted = false;
         private GazeMessage NextGazeMessage;
         private UserPresenceMessage NextUserPresenceMessage;
+        private bool HasLeftEyePosition;
+        private bool HasRightEyePosition;
+        private UserPresence LastUserPresence = UserPresence.NotPresent;
 
         public double lastGazeMessage = 0;
+        public double lastLeftEyeValid = 0;
+        public double lastRightEyeValid = 0;
+
 
         public async Task ClientConnectRequest(Message msg)
         {
@@ -36,7 +42,7 @@ namespace EyeTracker.Service.Core
             }
 
             Initialize();
-            //_keepAliveFaulted = false;
+ 
             Callback = OperationContext.Current.GetCallbackChannel<IEyeTrackerCallback>();
 
             //Start sending joint position each tick of the timer
@@ -60,11 +66,13 @@ namespace EyeTracker.Service.Core
             host = new Host();
             var presenceObserver = host.States.CreateUserPresenceObserver();
             presenceObserver.Changed += presenceObserverChange;
-
-            //Tobii.Interaction.FrameworkSupport.GazeAwareEventHelper
+        
 
             var gazePointStream = host.Streams.CreateGazePointDataStream(GazePointDataMode.LightlyFiltered, true);
             gazePointStream.Next += gazePointStreamNext;
+
+            var eyePositionStream = host.Streams.CreateEyePositionStream(true);
+            eyePositionStream.Next += EyePositionStream_Next;
 
             /*
             var fixationStream = host.Streams.CreateFixationDataStream(FixationDataMode.Sensitive, true);
@@ -72,18 +80,27 @@ namespace EyeTracker.Service.Core
             */
         }
 
+        private void EyePositionStream_Next(object sender, StreamData<EyePositionData> e)
+        {
+            this.HasLeftEyePosition = e.Data.HasLeftEyePosition;
+            this.HasRightEyePosition = e.Data.HasRightEyePosition;
+           //Console.WriteLine("IsValid: (Left :{0}, Right: {1}) @{2:0}", e.Data.HasLeftEyePosition, e.Data.HasRightEyePosition, e.Data.Timestamp);
+        }
+
         private void completionHandler(IAsyncData asyncData)
         {
             Console.WriteLine("Loaded profile");
-               
-            
         }
 
 
         private void gazePointStreamNext(object sender, StreamData<GazePointData> e)
         {
-
             this.NextGazeMessage = new GazeMessage(e.Data.X, e.Data.Y);
+
+            this.NextGazeMessage.HasLeftEyePosition = this.HasLeftEyePosition;
+            this.NextGazeMessage.HasRightEyePosition = this.HasRightEyePosition;
+
+            //Logging at every n-th milliseconds
             if (e.Data.Timestamp - lastGazeMessage > 1000)
             {
                 Console.WriteLine("Interactor: " + e.InteractorId + " " + NextGazeMessage.ToString());
@@ -91,13 +108,13 @@ namespace EyeTracker.Service.Core
             }
         }
 
-
-
-
         private void presenceObserverChange(object sender, EngineStateValue<UserPresence> e)
         {
             if (e.IsValid)
-                NextUserPresenceMessage = new UserPresenceMessage((byte)e.Value);
+            {
+                NextUserPresenceMessage = new UserPresenceMessage(e.Value == UserPresence.Present);
+            }
+            //Console.WriteLine($"Presence observer value: {e.Value} (Valid: {e.IsValid})");
         }
 
         protected async Task SendEyeTrackerMessage()
@@ -115,14 +132,14 @@ namespace EyeTracker.Service.Core
                     await Callback.SendTrackerMessage(NextGazeMessage.CreateBinaryMessage());
                     NextGazeMessage = null;
                 }
-
-                using (NextUserPresenceMessage)
+                if (NextUserPresenceMessage != null)
                 {
-                    // if (NextGazeMessage != null)
-                    //await Callback.SendTrackerMessage(NextUserPresenceMessage.CreateBinaryMessage());
+                    await Callback.SendTrackerMessage(NextUserPresenceMessage.CreateBinaryMessage());
+                    NextUserPresenceMessage = null;
                 }
 
-                //await Task.Delay(100);
+
+                await Task.Delay(20);
             }
             Dispose();
         }

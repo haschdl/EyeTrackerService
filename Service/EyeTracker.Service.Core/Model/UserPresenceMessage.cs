@@ -11,12 +11,12 @@ namespace EyeTracker.Service.Core.Model
     public class UserPresenceMessage : MessageBase, IDisposable
     {
 
-        public byte Presence { get; }
+        public bool UserPresent { get; }
 
 
-        public UserPresenceMessage(byte presence) : base(MessageType.USER_PRESENCE)
+        public UserPresenceMessage(bool presence) : base(MessageType.USER_PRESENCE)
         {
-            this.Presence = presence;
+            this.UserPresent = presence;
         }
 
 
@@ -25,7 +25,7 @@ namespace EyeTracker.Service.Core.Model
         {
             const int LEN = 1; //for byte Presence
             byte[] messageDataBytes = new byte[LEN];
-            messageDataBytes[0] = Presence;
+            messageDataBytes[0] = (byte) (UserPresent ? 1 : 0);
             if (messageDataBytes == null)
                 return null;
 
