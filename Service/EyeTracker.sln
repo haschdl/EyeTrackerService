@@ -11,13 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTracker.Service.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EyeTracker.Service.Host", "EyeTracker.Service.Host\EyeTracker.Service.Host.csproj", "{6596ADF5-9B81-47F1-A588-F57240B69F39}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientJS", "ClientJS", "{BC0151FB-8BFC-4CF8-913A-883386227DCF}"
-	ProjectSection(SolutionItems) = preProject
-		index.html = index.html
-		index.js = index.js
-		README.md = README.md
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

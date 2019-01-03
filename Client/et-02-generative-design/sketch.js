@@ -35,7 +35,7 @@ var moduleAlpha = .7;
 var maxDistance = 500;
 
 function setup() {
-  createCanvas(windowWidth-20, windowHeight-20);
+  createCanvas(windowWidth-10, windowHeight-20);
   colorMode(HSB, 1.,1.,1.,1.);
   noFill();
   strokeWeight(2);
@@ -53,15 +53,16 @@ function draw() {
   for (var gridY = 0; gridY < height-inc ; gridY += inc) {
     for (var gridX = 0; gridX < width-inc ; gridX += inc) {
       
-      let diameter = 8;
-
-      if(pos && userPresent)      
-          diameter = dist(pos[0]/1.25, pos[1]/1.25, gridX, gridY);
-      //var diameter = dist(mouseX, mouseY, gridX, gridY);
+      let diameter = 10;
       let c = color(pow(noise(.1 * (gridX+.2) * (gridY+.45)  ,millis()/800.),2),1.,1.,.5);
-      diameter = 40 * pow(diameter/maxDistance,.9);
-      push();
-      //stroke(c, moduleAlpha );
+      
+      if(pos && userPresent) {
+          diameter = dist(pos[0]/1.25, pos[1]/1.25, gridX, gridY);
+         //var diameter = dist(mouseX, mouseY, gridX, gridY);
+         diameter = 40 * pow(diameter/maxDistance,.9);
+      }
+
+      push();      
       fill(c);
       translate(gridX, gridY, diameter * 5);
       rect(0, 0, diameter, diameter); // also nice: ellipse(...)
