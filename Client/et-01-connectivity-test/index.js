@@ -29,7 +29,7 @@ function onMessage(evt) {
     writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>', parent);
 
     //see documentation! First element of evt.data is for message type, then next is for position
-    let pos = new Float64Array(evt.data.slice(1)); 
+    let pos = new Float64Array(evt.data.slice(3)); 
     writeToScreen('<span style="color: blue;">X: ' + pos[0] + '  Y: ' + pos[1] + '</span>',parent);
 }
 

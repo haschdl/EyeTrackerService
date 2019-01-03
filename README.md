@@ -2,6 +2,8 @@
 
 Use eye-tracking data in javascript applications.
 
+![](Client/docs/EyeTrackerTest02.gif)
+
 EyeTracker service is a bridge from eye tracking device connected to a computer and web-based applications running in the browser - for example a game or an interactive web-site.
 
 ## Requirements
